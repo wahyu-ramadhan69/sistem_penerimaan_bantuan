@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <h5 style="color:red    ;">PERINGATAN !!!!</h5>
+        </div>
+
+        <div class="card">
+            <div class="card-block">
+                <p>Kelompok {{Kub.nama_kub}} Telah mendapatkan bantuan berupa :
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>DAK</th>
+                            <th>KKP</th>
+                            <th>APBD</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{x.dak}}</td>
+                            <td>{{x.kkp}}</td>
+                            <td>{{x.apbd}}</td>
+                            <td>{{x.tanggal}}</td>
+                            {% endfor %}
+                    </tbody>
+                </table>
+                <form action="{% url 'tambah_bantu' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="id" value="{{Kub.id}}" hidden>
+                    <button type="submit" class="btn btn-danger">Tetap tambah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

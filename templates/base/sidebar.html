@@ -1,0 +1,52 @@
+{% load static %}
+
+<nav class="pcoded-navbar">
+    <div class="navbar-wrapper">
+        <div class="navbar-brand header-logo">
+            <a href="{% url 'dashboard' %}" class="b-brand">
+                <div class="b-bg">
+                    <img src="{%static 'img/LOGO.png'%}" style="width: 25px; height: 25px;">
+                </div>
+                <span class="b-title">Siperkap</span>
+            </a>
+            <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+        </div>
+        <div class="navbar-content scroll-div">
+            <ul class="nav pcoded-inner-navbar">
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Navigation</label>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item">
+                    <a href="{% url 'index' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                </li>
+
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="fab fa-battle-net"></i></span><span class="pcoded-mtext">Data</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'kelompok_awal' %}" class="">KUB Awal</a></li>
+                        <li class=""><a href="{% url 'kelompok_u' %}" class="">KUB</a></li>
+                        <li class=""><a href="{% url 'koperasi_t' %}" class="">Koperasi</a></li>
+                    </ul>
+                </li>
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="fas fa-biohazard"></i></i></span><span class="pcoded-mtext">Manajemen
+                            Bantuan</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'bantuan_kub_t' %}" class="">Bantuan KUB</a></li>
+                        <li class=""><a href="{% url 'bantuan_koperasi' %}" class="">Bantuan Koperasi</a></li>
+                    </ul>
+                </li>
+                <li data-username="form elements advance componant validation masking wizard picker select"
+                    class="nav-item">
+                    <a href="{% url 'pengguna' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="fas fa-dragon"></i></span><span class="pcoded-mtext">Pengguna</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

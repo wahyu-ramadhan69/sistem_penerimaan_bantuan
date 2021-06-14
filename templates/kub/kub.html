@@ -1,0 +1,265 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>Data Kelompok Usaha</h5>
+        </div>
+        <div class="card-block table-border-style">
+            <div>
+                <span>
+                    <a href="{% url 'c_kub' %}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"
+                        style="color: aliceblue;"><i class="fas fa-print fa-sm text-white-50"></i> Cetak</a>
+                    <a data-toggle="modal" data-target="#myModal"
+                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="color: aliceblue;"><i
+                            class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
+                    <a data-toggle="modal" data-target="#Modalexport"
+                        class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+                            class="fas fa-print fa-sm text-white-50"></i> Import Data Kub</a>
+                </span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover" id="coba">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>nama kelompok usaha</th>
+                            <th>No registrasi / badan usaha</th>
+                            <th>Alamat</th>
+                            <th>Nama Ketua</th>
+                            <th>Jumlah Anggota</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{data.nama_kub|default_if_none:""}}</td>
+                            <td>{{data.no_registrasi|default_if_none:""}}</td>
+                            <td>{{data.alamat|default_if_none:""}}</td>
+                            <td>{{data.nama_ketua|default_if_none:""}}</td>
+                            <td>{{data.jumlah_anggota|default_if_none:""}}</td>
+                            <td>{{data.status|default_if_none:""}}</td>
+                            <td>
+
+                                <a data-toggle="modal" data-target="#Modaledit{{data.id}}"><button type="button"
+                                        class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button></a>
+                                <a data-toggle="modal" data-target="#Modalhapus{{data.id}}"><button type="button"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></a>
+                            </td>
+                            <div class="modal fade" id="Modalhapus{{data.id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true"></span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Hapus Data Kelompok</h4>
+                                        </div>
+                                        <form class="form-horizontal" action="{% url 'kelompok_u_hapus' data.id%}"
+                                            method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <h1 style="font-size: 30px;">Apakah anda yakin ingin menghapus data?
+                                                </h1>
+                                            </div>
+                                            <br>
+
+                                            <div class=" modal-footer">
+                                                <button type="button" class="btn btn-default btn-flat"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-danger btn-flat"
+                                                    id="simpan">Hapus</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                        <div class="modal fade" id="Modaledit{{data.id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"><span aria-hidden="true"></span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Ubah Data Kelompok</h4>
+                                    </div>
+                                    <form class="form-horizontal" action="{% url 'kelompok_u_ubah' data.id %}"
+                                        method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-4 control-label">Nama
+                                                    Kelompok</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="nama_kub" class="form-control"
+                                                        id="inputEmail3" value="{{data.nama_kub}}"
+                                                        placeholder="Nama Kelompok" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-4 control-label">No
+                                                    registrasi</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="no_registrasi" class="form-control"
+                                                        id="inputEmail3" value="{{data.no_registrasi}}"
+                                                        placeholder="Nama Kelompok" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword3"
+                                                    class="col-sm-4 control-label">Alamat</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="alamat" class="form-control"
+                                                        id="inputPassword3" value="{{data.alamat}}"
+                                                        placeholder="Alamat">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-4 control-label">Nama
+                                                    Ketua</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="nama_ketua" class="form-control"
+                                                        id="inputPassword3" value="{{data.nama_ketua}}"
+                                                        placeholder="Alamat">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-4 control-label">Jumlah
+                                                    anggota</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="jumlah_anggota" class="form-control"
+                                                        id="inputPassword3" value="{{data.jumlah_anggota}}"
+                                                        placeholder="Alamat">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputUserName" class="col-sm-4 control-label">Status
+                                                    Kelompok</label>
+                                                <div class="col-sm-7">
+                                                    <select class="form-control" name="status" required>
+                                                        <option value="{{data.status}}">-- Pilih status--</option>
+                                                        <option value="aktif">Aktif</option>
+                                                        <option value="tidak aktif">Tidak aktif</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class=" modal-footer">
+                                            <button type="button" class="btn btn-default btn-flat"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary btn-flat"
+                                                id="simpan">Simpan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true"></span></button>
+                <h4 class="modal-title" id="myModalLabel">Tambah Data Kelompok</h4>
+            </div>
+            <form class="form-horizontal" action="{% url 'kelompok_u_tambah' %}" method="post"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-4 control-label">Nama Kelompok</label>
+                        <div class="col-sm-7">
+                            <input type="text" name="nama_kub" class="form-control" id="inputEmail3"
+                                placeholder="Nama Kelompok" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-4 control-label">No registrasi</label>
+                        <div class="col-sm-7">
+                            <input type="text" name="no_registrasi" class="form-control" id="inputEmail3"
+                                placeholder="Nama Kelompok" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Alamat</label>
+                        <div class="col-sm-7">
+                            <input type="text" name="alamat" class="form-control" id="inputPassword3"
+                                placeholder="Alamat">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Nama Ketua</label>
+                        <div class="col-sm-7">
+                            <input type="text" name="nama_ketua" class="form-control" id="inputPassword3"
+                                placeholder="Alamat">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label">Jumlah anggota</label>
+                        <div class="col-sm-7">
+                            <input type="text" name="jumlah_anggota" class="form-control" id="inputPassword3"
+                                placeholder="Alamat">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUserName" class="col-sm-4 control-label">Status Kelompok</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="status" required>
+                                <option value="aktif">Aktif</option>
+                                <option value="tidak aktif">Tidak aktif</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" modal-footer">
+                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-flat" id="simpan">Tambah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modalexport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true"></button>
+                <h4 class="modal-title" id="myModalLabel">Export data</h4>
+            </div>
+            <form class="form-horizontal" action="{% url 'import_kub' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-4 control-label">Pilih file</label>
+                        <div class="col-sm-7">
+                            <input type="file" name="myfile" class="form-control" id="inputEmail3" required>
+                        </div>
+                    </div>
+                </div>
+                <div class=" modal-footer">
+                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-flat" id="simpan">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

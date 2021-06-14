@@ -1,0 +1,128 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>Ubah Bantuan Kelompok {{Kub.nama_kub}}</h5>
+        </div>
+        <div class="card">
+            <div class="card-block">
+                <p>Kelompok {{Kub.nama_kub}} telah mendapatkan bantuan berupa :
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>DAK</th>
+                            <th>KKP</th>
+                            <th>APBD</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{x.dak}}</td>
+                            <td>{{x.kkp}}</td>
+                            <td>{{x.apbd}}</td>
+                            <td>{{x.tanggal}}</td>
+                            <td>
+
+                                <a data-toggle="modal" data-target="#Modaledit{{x.id}}"><button type="button"
+                                        class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button></a>
+                                <a data-toggle="modal" data-target="#Modalhapus{{x.id}}"><button type="button"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></a>
+                            </td>
+                            <div class="modal fade" id="Modalhapus{{x.id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true"></span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Hapus Data Bantuan</h4>
+                                        </div>
+                                        <form class="form-horizontal" action="{% url 'proses_hapus'%}" method="post"
+                                            enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <input type="text" name="nomer" value="{{x.id}}" hidden>
+                                                <input type="text" name="angka" value="{{x.kub_id}}" hidden>
+                                                <h1 style="font-size: 20px;">Apakah anda yakin ingin menghapus data?
+                                                </h1>
+                                            </div>
+                                            <br>
+
+                                            <div class=" modal-footer">
+                                                <button type="button" class="btn btn-default btn-flat"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-danger btn-flat"
+                                                    id="simpan">Hapus</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="Modaledit{{x.id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true"></span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Ubah Data Bantuan</h4>
+                                        </div>
+                                        <form class="form-horizontal" action="{% url 'proses_edit' %}" method="post"
+                                            enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <input type="text" name="angka" value="{{x.kub_id}}" hidden>
+                                            <input type="text" name="id" value="{{x.id}}" hidden>
+                                            <div class="modal-body">
+                                                <label class="col-sm-4 control-label"> Dak</label>
+                                                <div class="form-group">
+                                                    <div class="col-sm-10">
+                                                        <textarea name="dak" id="" class="form-control" cols="5"
+                                                            rows="5">{{x.dak}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <label class="col-sm-4 control-label"> KKP</label>
+                                                <div class="form-group">
+                                                    <div class="col-sm-10">
+                                                        <textarea name="kkp" class="form-control" id="" cols="5"
+                                                            rows="5">{{x.kkp}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <label class="col-sm-4 control-label"> APBD</label>
+                                                <div class="form-group">
+                                                    <div class="col-sm-10">
+                                                        <textarea name="apbd" class="form-control" id="" cols="5"
+                                                            rows="5">{{x.apbd}}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+
+                                            <div class=" modal-footer">
+                                                <button type="button" class="btn btn-default btn-flat"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary btn-flat"
+                                                    id="simpan">Tambah</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

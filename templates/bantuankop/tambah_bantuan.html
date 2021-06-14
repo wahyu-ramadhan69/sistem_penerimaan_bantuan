@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>Tambah Bantuan Koperasi</h5>
+        </div>
+
+        <div class="card">
+            <form action="{% url 'proses_tambahkop' %}" method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                    <input type="text" name="id" value="{{Kop.id}}" hidden>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nama Koperasi</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" value="{{Kop.nama_koperasi}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">DAK</label>
+                                    <textarea name="dak" class="form-control" id="exampleFormControlTextarea1"
+                                        rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">KKP</label>
+                                    <textarea name="kkp" class="form-control" id="exampleFormControlTextarea1"
+                                        rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">APBD</label>
+                                    <textarea name="apbd" class="form-control" id="exampleFormControlTextarea1"
+                                        rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+
+    </div>
+</div>
+{% endblock content %}

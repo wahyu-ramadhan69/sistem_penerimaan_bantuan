@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="main">
+	<!-- MAIN CONTENT -->
+	<div class="main-content">
+		<div class="container-fluid">
+			<!-- OVERVIEW -->
+			<div class="panel panel-headline">
+				<div class="panel-heading">
+					<h3 class="panel-title">Data bantuan kelompok {{data3.nama_kub}}</h3>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-5">
+                        <!-- CONDENSED TABLE -->
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-4 control-label">Bantuan KKP :</label>
+                                    </div>
+                                    <br>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">Nama Alat</label>
+                                    <div class="col-sm-7">
+                                        <span class="control-label">{{data2.nama_alat}}</span>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">Bantuan DAK :</label>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">Jaring</label>
+                                    <div class="col-sm-7">
+                                        <span class="control-label">{{data1.jaring}} unit</span>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">Fish Finder</label>
+                                    <div class="col-sm-7">
+                                        <span class="control-label">{{data1.fish_finder}} unit</span>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">Kapal</label>
+                                    <div class="col-sm-7">
+                                        <span class="control-label">{{data1.kapal}} unit</span>
+                                    </div>
+                                </div>
+                                        
+                            </div>
+                        </div>
+                        <!-- END CONDENSED TABLE -->
+                    </div>
+				</div>
+			</div>
+			<!-- END OVERVIEW -->				
+			</div>
+		</div>
+	</div>
+	<!-- END MAIN CONTENT -->
+</div>
+{% endblock content %}
